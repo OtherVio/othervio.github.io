@@ -24,6 +24,7 @@ class ThemeService {
         }
 
         this.title = dict["title"];
+        document.title = this.title;
         this.description = dict["description"];
         this.footer = dict["footer"];
 
