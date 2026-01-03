@@ -1,4 +1,4 @@
-class LoadingObserver {
+class DeviationLoadingObserver {
   #deviationsToLoad;
   #deviationsLoaded;
 
@@ -36,4 +36,4 @@ class LoadingObserver {
   }
 }
 
-window.loading = new LoadingObserver();
+window.deviationLoading = new DeviationLoadingObserver();

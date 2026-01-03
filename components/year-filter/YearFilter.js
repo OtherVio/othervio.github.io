@@ -44,12 +44,14 @@ fetch("/components/year-filter/YearFilter.html")
 
       selectFrom() {
         let from = this.#shadowRoot.querySelector("#from");
-        window.filters.from = from.value;
+        if (from !== "year") window.filters.from = from.value;
+        else window.filters.from = undefined;
       }
 
       selectTo() {
         let to = this.#shadowRoot.querySelector("#to");
-        window.filters.to = to.value;
+        if (to !== "year") window.filters.to = to.value;
+        else window.filters.to = undefined;
       }
     }
     customElements.define("devi-year-filter", YearFilter);

@@ -60,6 +60,7 @@ fetch("/components/deviation/Deviation.html")
       set deviationName(value) {
         this.#deviationName = structuredClone(value);
         this.id = this.#deviationName;
+        window.deviationLoading.loaded(this.#deviationName);
         this.render();
       }
 
@@ -85,7 +86,7 @@ fetch("/components/deviation/Deviation.html")
         if (!this.image) return;
 
         const content = this.shadowRoot.querySelectorAll(".content")[0];
-        content.innerHTML = `<img src="/deviations/images/${this.image}" onload="window.loading.loaded('${this.deviationName}')"/>`;
+        content.innerHTML = `<img loading="lazy" src="/deviations/images/${this.image}" onload="window.imageLoading.loaded('${this.deviationName}')"/>`;
 
         if (!this.#thumbnail) {
           this.onclick = undefined;

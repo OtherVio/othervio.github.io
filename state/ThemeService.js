@@ -1,5 +1,11 @@
 class ThemeService {
+  title;
+  description;
+  footer;
+
   constructor() {
+    this.observers = [];
+
     fetch("/theme/theme.txt")
       .then((stream) => stream.text())
       .then((txt) => {
@@ -16,6 +22,10 @@ class ThemeService {
             dict[variable] = value;
           }
         }
+
+        this.title = dict["title"];
+        this.description = dict["description"];
+        this.footer = dict["footer"];
 
         document.documentElement.style.cssText =
           "--gallery-background-color: " +
@@ -36,7 +46,18 @@ class ThemeService {
           ";";
         document.documentElement.style.cssText +=
           "--filter-button-color: " + dict["filter-button-color"] + ";";
+
+        this.notifyObservers();
       });
+  }
+
+  addObserver(fn) {
+    this.observers.push(fn);
+  }
+
+  notifyObservers() {
+    console.log("notifying");
+    this.observers.forEach((fn) => fn());
   }
 }
 

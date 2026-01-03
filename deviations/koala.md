@@ -1,5 +1,5 @@
 ---
-title: Welcome to my store
+title: a deviation
 image: pot.webp
 date: 06-04-2022
 

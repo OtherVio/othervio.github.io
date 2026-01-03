@@ -1,5 +1,5 @@
 ---
-title: Welcome to my store
+title: a deviation
 date: 01-01-2025
 image: photoot.png
 

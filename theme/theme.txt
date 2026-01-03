@@ -5,3 +5,7 @@ text-color: rgb(81, 64, 156)
 filter-button-border-color: rgb(44, 34, 68)
 filter-button-color: rgb(255, 255, 255)
 filter-button-text-color: rgb(44, 34, 68)
+
+title: OtherVio's site
+description: Welcome to my website
+footer: This is some footer text

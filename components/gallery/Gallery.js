@@ -26,7 +26,8 @@ fetch("/components/gallery/Gallery.html")
           .then((stream) => stream.text())
           .then((txt) => {
             let deviationNames = txt.split(/\r?\n/);
-            window.loading.deviationsToLoad = deviationNames;
+            window.deviationLoading.deviationsToLoad = deviationNames;
+            window.imageLoading.deviationsToLoad = deviationNames;
             deviationNames.forEach((deviationName) => {
               fetch("/deviations/" + deviationName + ".md")
                 .then((stream) => stream.text())
@@ -154,7 +155,7 @@ fetch("/components/gallery/Gallery.html")
               this.resizeAllGridItems.bind(this)
             );
             window.filters.addObserver(this.filter.bind(this));
-            window.loading.addObserver(this.resizeAllGridItems.bind(this));
+            window.imageLoading.addObserver(this.resizeAllGridItems.bind(this));
           });
       }
 

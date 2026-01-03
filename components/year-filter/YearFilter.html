@@ -20,6 +20,22 @@
   }
 
   details div {
+    display: flex;
+    align-items: center;
+    font-size: larger;
+  }
+
+  select {
+    border-radius: 4px;
+    border: 1px solid var(--filter-button-border-color);
+    background-color: var(--filter-button-color);
+    color: var(--filter-button-text-color);
+    cursor: pointer;
+    user-select: none;
+    padding: 0.5rem;
+  }
+
+  details div {
     margin: 1rem;
   }
 </style>
@@ -32,12 +48,12 @@
     <div>
       <label for="from">From</label>
       <select name="from" id="from">
-        <option disabled selected value>year</option>
+        <option selected value>year</option>
       </select>
 
       <label for="to">to</label>
       <select name="to" id="to">
-        <option disabled selected value>year</option>
+        <option selected value>year</option>
       </select>
     </div>
   </details>

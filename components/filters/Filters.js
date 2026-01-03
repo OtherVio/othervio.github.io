@@ -12,7 +12,7 @@ fetch("/components/filters/Filters.html")
       constructor() {
         super();
 
-        window.window.loading.addObserver(this.updatetags.bind(this));
+        window.deviationLoading.addObserver(this.updatetags.bind(this));
         this.#tags = window.tags;
 
         let template = element;

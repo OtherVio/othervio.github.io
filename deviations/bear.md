@@ -1,5 +1,5 @@
 ---
-title: Welcome to my store
+title: a deviation
 image: plumeria.webp
 date: 01-03-2025
 Fandom: Danny Phantom

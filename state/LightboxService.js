@@ -4,8 +4,13 @@ class LightboxService {
   constructor() {
     if (location.hash) {
       const id = location.hash.slice(1);
-      window.loading.addObserver(() => this.openLightbox(id), 500);
+      window.deviationLoading.addObserver(() => this.openLightbox(id), 500);
     }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" && this.hasNext()) this.next();
+      else if (e.key === "ArrowLeft" && this.hasPrevious()) this.previous();
+    });
 
     window.navigation.addEventListener("navigate", (event) => {
       window.setTimeout(() => {
