@@ -1,6 +1,8 @@
 ---
 title: Welcome to my store
 image: farm.webp
+date: 06-04-2024
+
 Fandom: Danny Phantom
 ---
 

@@ -68,7 +68,7 @@ fetch("/components/deviation/Deviation.html")
       }
 
       set date(value) {
-        this.#date = structuredClone(value);
+        this.#date = value;
         this.render();
       }
 
@@ -85,7 +85,7 @@ fetch("/components/deviation/Deviation.html")
         if (!this.image) return;
 
         const content = this.shadowRoot.querySelectorAll(".content")[0];
-        content.innerHTML = `<img src="/deviations/images/${this.image}"/>`;
+        content.innerHTML = `<img src="/deviations/images/${this.image}" onload="window.loading.loaded('${this.deviationName}')"/>`;
 
         if (!this.#thumbnail) {
           this.onclick = undefined;

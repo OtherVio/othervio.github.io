@@ -8,16 +8,6 @@
     width: 100%;
   }
 
-  label {
-    border-radius: 4px;
-    border: 1px solid var(--filter-button-border-color);
-    background-color: var(--filter-button-color);
-    color: var(--filter-button-text-color);
-    cursor: pointer;
-    user-select: none;
-    padding: 0.5rem;
-  }
-
   details summary {
     font-size: larger;
     cursor: pointer;
@@ -38,7 +28,17 @@
 
 <div class="panel">
   <details open>
-    <summary></summary>
-    <div></div>
+    <summary>Years</summary>
+    <div>
+      <label for="from">From</label>
+      <select name="from" id="from">
+        <option disabled selected value>year</option>
+      </select>
+
+      <label for="to">to</label>
+      <select name="to" id="to">
+        <option disabled selected value>year</option>
+      </select>
+    </div>
   </details>
 </div>

@@ -1,22 +1,20 @@
 class LightboxService {
-  #deviationId
+  #deviationId;
 
   constructor() {
     if (location.hash) {
       const id = location.hash.slice(1);
-      window.setTimeout(() => this.openLightbox(id), 500);
+      window.loading.addObserver(() => this.openLightbox(id), 500);
     }
 
     window.navigation.addEventListener("navigate", (event) => {
-      if (location.hash) {
-        const id = location.hash.slice(1);
-        this.openLightbox(id);
-      }
-      else {
-        // close the actual lightbox element without changing url
-      }
-    })
-
+      window.setTimeout(() => {
+        if (location.hash) {
+          const id = location.hash.slice(1);
+          this.openLightbox(id);
+        }
+      });
+    });
   }
 
   openLightbox(deviationId) {
@@ -45,35 +43,52 @@ class LightboxService {
     element.image = deviation["image"];
 
     document.body.appendChild(lightbox);
-    let dialog = lightbox.shadowRoot.querySelector("#lightbox");
+    let dialog = lightbox.shadowRoot.querySelector("#lightbox-content");
     dialog.appendChild(element);
     lightbox.open();
   }
 
   closeLightbox() {
-    history.pushState("", document.title, window.location.pathname
-      + window.location.search);
+    if (document.body.querySelector("devi-lightbox")) {
+      document.body.removeChild(document.body.querySelector("devi-lightbox"));
+    }
+    history.pushState(
+      "",
+      document.title,
+      window.location.pathname + window.location.search
+    );
   }
 
-  next() {
+  hasNext() {
+    return !!this.next(false);
+  }
+
+  hasPrevious() {
+    return !!this.previous(false);
+  }
+
+  next(open = true) {
     const gallery = document.querySelector("devi-gallery");
     const deviations = gallery.getDeviations();
 
     let deviation;
+    let found;
     for (let d of deviations) {
       if (deviation) {
         deviation = d;
+        found = true;
         break;
       }
-      if (d.id === this.#deviationId) deviation = d;
+      if (d.id === this.#deviationId) {
+        deviation = d;
+      }
     }
 
-    console.log(deviation.id)
-
-    this.openLightbox(deviation.id);
+    if (deviation && open) this.openLightbox(deviation.id);
+    return found ? deviation?.id : undefined;
   }
 
-  previous() {
+  previous(open = true) {
     const gallery = document.querySelector("devi-gallery");
     const deviations = gallery.getDeviations();
 
@@ -83,12 +98,10 @@ class LightboxService {
         break;
       }
       deviation = d;
-
     }
 
-    console.log(deviation.id)
-
-    this.openLightbox(deviation.id);
+    if (deviation && open) this.openLightbox(deviation.id);
+    return deviation?.id;
   }
 }
 

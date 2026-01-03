@@ -5,10 +5,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 20vw;
+        width: 300px;
         height: 100%;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        background-color: var(--panel-background-color);
     }
 
     .home {
@@ -21,7 +20,19 @@
         display: block;
         border-radius: 50%;
         max-width: 200px;
+        margin-top: 2rem;
     }
+
+    .content {
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .panel {
+            width: 100%;
+        }
+    }
+
 </style>
 
 <script>
@@ -30,7 +41,7 @@
 
 <div class="panel">
     <a class="home" href="/">
-        <img class="avatar" src="/theme/images/avatar.png"/>
+        <img class="avatar" src="/theme/images/avatar.jpg"/>
     </a>
     <h1>OtherVio</h2>
     <div class="content">

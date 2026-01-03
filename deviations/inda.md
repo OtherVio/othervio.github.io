@@ -1,6 +1,8 @@
 ---
 title: Welcome to my store
 image: photoot.png
+date: 01-03-2026
+
 Fandom: Houdini
 Style: sketch, painted
 ---

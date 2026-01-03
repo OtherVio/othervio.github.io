@@ -1,6 +1,8 @@
 ---
 title: Welcome to my store
 image: photoot.png
+date: 06-04-2024
+
 Fandom: Danny Phantom
 Style: sketch
 ---

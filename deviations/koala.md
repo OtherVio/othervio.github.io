@@ -1,6 +1,8 @@
 ---
 title: Welcome to my store
 image: pot.webp
+date: 06-04-2022
+
 Fandom: Danny Phantom
 ---
 

@@ -7,6 +7,7 @@ fetch("/components/gallery/Gallery.html")
 
     class Gallery extends HTMLElement {
       #deviationsByTag = {};
+      #deviationsByYear = {};
       #shadowRoot;
 
       constructor() {
@@ -25,6 +26,7 @@ fetch("/components/gallery/Gallery.html")
           .then((stream) => stream.text())
           .then((txt) => {
             let deviationNames = txt.split(/\r?\n/);
+            window.loading.deviationsToLoad = deviationNames;
             deviationNames.forEach((deviationName) => {
               fetch("/deviations/" + deviationName + ".md")
                 .then((stream) => stream.text())
@@ -59,7 +61,7 @@ fetch("/components/gallery/Gallery.html")
                     const image = dict["image"];
 
                     element.title = title;
-                    element.date = date;
+                    element.date = new Date(date);
                     element.image = image;
                     element.thumbnail = true;
                     element.deviationName = deviationName;
@@ -70,6 +72,14 @@ fetch("/components/gallery/Gallery.html")
                     delete dict["image"];
 
                     const tags = dict;
+
+                    const year = element.date.getFullYear();
+                    if (!(year in this.#deviationsByYear))
+                      this.#deviationsByYear[year] = [];
+                    this.#deviationsByYear[year].push(deviationName);
+
+                    if (!window.years.years.includes(year))
+                      window.years.years = [...window.years.years, year];
 
                     for (let el in tags) {
                       const arr = tags[el].split(",");
@@ -106,9 +116,32 @@ fetch("/components/gallery/Gallery.html")
 
                     element.tags = tags;
 
-                    shadowRoot
-                      .querySelectorAll(".content")[0]
-                      .appendChild(parent);
+                    let existing =
+                      shadowRoot.querySelectorAll(".content .item");
+                    let referenceNode;
+                    if (existing.length !== 0) {
+                      for (let d of existing) {
+                        referenceNode = d;
+                        if (d.childNodes[0].date <= element.date) {
+                          break;
+                        }
+                      }
+                    }
+
+                    // if none is found, we'll have iterated
+                    // over the whole list
+                    if (
+                      !referenceNode ||
+                      referenceNode.childNodes[0].date > element.date
+                    ) {
+                      shadowRoot
+                        .querySelectorAll(".content")[0]
+                        .appendChild(parent);
+                    } else {
+                      shadowRoot
+                        .querySelectorAll(".content")[0]
+                        .insertBefore(parent, referenceNode);
+                    }
                   } else {
                     shadowRoot.querySelectorAll(".content")[0].innerHTML =
                       "Missing deviation information.";
@@ -116,24 +149,30 @@ fetch("/components/gallery/Gallery.html")
                 });
             });
 
-            window.setTimeout(this.resizeAllGridItems.bind(this), 100);
             window.addEventListener(
               "resize",
               this.resizeAllGridItems.bind(this)
             );
             window.filters.addObserver(this.filter.bind(this));
+            window.loading.addObserver(this.resizeAllGridItems.bind(this));
           });
       }
 
       getDeviations() {
-        return this.#shadowRoot.querySelectorAll(".item:not(.hidden) devi-deviation");
+        return this.#shadowRoot.querySelectorAll(
+          ".item:not(.hidden) devi-deviation"
+        );
       }
 
       filter(filters) {
         const deviations = this.#shadowRoot.querySelectorAll(".item");
         let deviationIds = [];
 
-        if (!Object.keys(filters["tags"]).length) {
+        if (
+          !Object.keys(filters["tags"]).length &&
+          !filters["from"] &&
+          !filters["to"]
+        ) {
           for (let deviation of deviations) {
             deviation.classList.remove("hidden");
           }
@@ -143,6 +182,36 @@ fetch("/components/gallery/Gallery.html")
         for (let deviation of deviations) {
           deviation.classList.add("hidden");
           deviationIds.push(deviation.id);
+        }
+
+        if (filters["from"]) {
+          // iterate over each key in deviations by year
+          // append that year's list if that year is >= from
+          let fromYearDeviations = [];
+          for (let year in this.#deviationsByYear) {
+            if (year >= filters["from"]) {
+              fromYearDeviations.push(...this.#deviationsByYear[year]);
+            }
+          }
+
+          deviationIds = deviationIds.filter((d) =>
+            fromYearDeviations.includes(d.split("item-")[1])
+          );
+        }
+
+        if (filters["to"]) {
+          // iterate over each key in deviations by year
+          // append that year's list if that year is <= to
+          let fromYearDeviations = [];
+          for (let year in this.#deviationsByYear) {
+            if (year <= filters["to"]) {
+              fromYearDeviations.push(...this.#deviationsByYear[year]);
+            }
+          }
+
+          deviationIds = deviationIds.filter((d) =>
+            fromYearDeviations.includes(d.split("item-")[1])
+          );
         }
 
         for (let tagName in this.#deviationsByTag) {
@@ -187,8 +256,6 @@ fetch("/components/gallery/Gallery.html")
       }
 
       resizeAllGridItems() {
-        // TODO: apply sorting
-
         const allItems = this.#shadowRoot.querySelectorAll(".item");
         for (let x = 0; x < allItems.length; x++) {
           this.resizeGridItem(allItems[x]);

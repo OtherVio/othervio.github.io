@@ -12,7 +12,7 @@ fetch("/components/filters/Filters.html")
       constructor() {
         super();
 
-        window.tags.addObserver(this.updatetags.bind(this));
+        window.window.loading.addObserver(this.updatetags.bind(this));
         this.#tags = window.tags;
 
         let template = element;
@@ -24,14 +24,19 @@ fetch("/components/filters/Filters.html")
         this.#shadowRoot.appendChild(templateContent.cloneNode(true));
       }
 
-      updatetags(tags) {
-        this.#tags = tags;
+      updatetags() {
+        this.#tags = window.tags.tags;
         this.render();
       }
 
       render() {
         const content = this.#shadowRoot.querySelectorAll(".content")[0];
-        content.innerHTML = "";
+        content.textContent = "";
+
+        let yearEl = document.createElement("devi-year-filter");
+        yearEl.id = "sd";
+        content.appendChild(yearEl);
+
         for (let tagName in this.#tags) {
           const tagDict = {};
           for (let tag of this.#tags[tagName]) {

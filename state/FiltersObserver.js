@@ -36,12 +36,29 @@ class FiltersObserver {
     this.notifyObservers();
   }
 
+  set to(to) {
+    this.#filters["to"] = to;
+    this.notifyObservers();
+  }
+
+  get to() {
+    return this.#filters["to"];
+  }
+
+  set from(from) {
+    this.#filters["from"] = from;
+    this.notifyObservers();
+  }
+
+  get from() {
+    return this.#filters["from"];
+  }
+
   toggleTag(tagName, tag) {
     if (!this.#filters["tags"][tagName]) {
       this.#filters["tags"][tagName] = [];
     }
 
-    // note: does not clean up tag names. this is a tiny leak
     if (!this.#filters["tags"][tagName].includes(tag)) {
       this.#filters["tags"][tagName].push(tag);
     } else {
