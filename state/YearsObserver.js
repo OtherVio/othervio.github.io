@@ -10,6 +10,13 @@ class YearsObserver {
   }
 
   set years(years) {
+    years.sort((a, b) => a - b);
+    let smallest = years[0];
+    let largest = years[years.length - 1];
+    for (let i = smallest; i < largest; i++) {
+      if (!years.includes(i)) years.push(i);
+    }
+    years.sort((a, b) => a - b);
     this.#years = years;
   }
 }

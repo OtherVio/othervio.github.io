@@ -57,7 +57,6 @@ class ThemeService {
   }
 
   notifyObservers() {
-    console.log("notifying");
     this.observers.forEach((fn) => fn());
   }
 }
