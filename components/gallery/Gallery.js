@@ -236,6 +236,8 @@ fetch("/components/gallery/Gallery.html")
         }
       }
 
+      // Approach from Andy Barefoot
+      // https://medium.com/@andybarefoot/a-masonry-style-layout-using-css-grid-8c663d355ebb
       resizeGridItem(item) {
         const grid = this.#shadowRoot.querySelectorAll(".content")[0];
 
