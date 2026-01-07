@@ -32,7 +32,7 @@ fetch("/components/gallery/Gallery.html")
               fetch("/deviations/" + deviationName + ".txt")
                 .then((stream) => stream.text())
                 .then((txt) => {
-                  let arr = txt.split("---");
+                  let arr = txt.split("___");
                   if (arr.length > 0) {
                     let fm = arr[1];
                     let lines = fm.split(/\r?\n/);
