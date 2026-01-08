@@ -12,11 +12,13 @@ class LightboxService {
       else if (e.key === "ArrowLeft" && this.hasPrevious()) this.previous();
     });
 
-    window.navigation.addEventListener("navigate", (event) => {
+    window.addEventListener("hashchange", (_event) => {
       window.setTimeout(() => {
         if (location.hash) {
           const id = location.hash.slice(1);
           this.openLightbox(id);
+        } else {
+          this.closeLightbox();
         }
       });
     });

@@ -10,6 +10,7 @@ class YearsObserver {
   }
 
   set years(years) {
+    console.log("setting to", years);
     years.sort((a, b) => a - b);
     let smallest = years[0];
     let largest = years[years.length - 1];
@@ -18,6 +19,7 @@ class YearsObserver {
     }
     years.sort((a, b) => a - b);
     this.#years = years;
+    console.log("sorted to", years);
   }
 }
 

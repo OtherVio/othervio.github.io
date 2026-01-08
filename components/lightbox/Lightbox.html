@@ -57,6 +57,18 @@
     right: 5%;
   }
 
+  #close {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    font-size: x-large;
+    scale: 2;
+    background-color: none;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+
   .hidden {
     display: none;
   }
@@ -87,9 +99,10 @@
     closedby="any"
     onclose="window.lightboxService.closeLightbox()"
   >
-    <button id="previous" title="Previous" accesskey=""><</button>
+    <button id="previous" title="Previous"><</button>
     <div id="lightbox-content"></div>
     <button id="next" title="Next">></button>
+    <a href="/#" id="close" title="Close">x</button>
   </dialog>
 </div>
 <output></output>

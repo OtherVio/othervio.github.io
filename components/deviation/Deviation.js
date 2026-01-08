@@ -86,7 +86,11 @@ fetch("/components/deviation/Deviation.html")
         if (!this.image) return;
 
         const content = this.shadowRoot.querySelectorAll(".content")[0];
-        content.innerHTML = `<a href="#${this.deviationName}"><img loading="lazy" src="/deviations/images/${this.image}" onload="window.imageLoading.loaded('${this.deviationName}')"/></a>`;
+        content.innerHTML = `<a href="#${
+          this.deviationName ? this.deviationName : ""
+        }"><img loading="lazy" src="/deviations/images/${
+          this.image
+        }" onload="window.imageLoading.loaded('${this.deviationName}')"/></a>`;
 
         if (!this.#thumbnail) {
           this.shadowRoot.querySelectorAll(".box")[0].classList.remove("scale");
