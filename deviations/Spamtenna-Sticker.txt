@@ -3,7 +3,8 @@ title: Spamtenna Sticker
 image: 2025-12-3-Spamtenna.png
 date: 12-08-2025
 Fandom: Deltarune
-Style: Celshaded, Flat, 2D art
+Medium: 2D art
+Style: Celshaded, Flat
 ___
 
 ## Spamtenna Sticker

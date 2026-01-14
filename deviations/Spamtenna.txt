@@ -3,7 +3,8 @@ title: Spamtenna
 image: 2025-8-28-tenna-watermarked.png
 date: 08-28-2025
 Fandom: Deltarune
-Style: Celshaded, Polished, 2D art
+Medium: 2D art
+Style: Celshaded, Polished
 ___
 
 ## Spamtenna
