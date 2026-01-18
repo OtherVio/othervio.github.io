@@ -113,15 +113,15 @@ fetch("/components/deviation/Deviation.html")
         };
 
         if (window.lightboxService.hasNext()) {
-          nextButton.classList.remove("hidden");
+          nextButton.classList.remove("visibility-hidden");
         } else {
-          nextButton.classList.add("hidden");
+          nextButton.classList.add("visibility-hidden");
         }
 
         if (window.lightboxService.hasPrevious()) {
-          prevButton.classList.remove("hidden");
+          prevButton.classList.remove("visibility-hidden");
         } else {
-          prevButton.classList.add("hidden");
+          prevButton.classList.add("visibility-hidden");
         }
       }
     }
