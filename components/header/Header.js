@@ -28,7 +28,7 @@ fetch("/components/header/Header.html")
         title.innerText = window.themeService.title;
 
         let description = this.#shadowRoot.querySelector(".description");
-        description.innerText = window.themeService.description;
+        description.innerHTML = window.themeService.description;
       }
     }
     customElements.define("devi-header", Header);

@@ -25,8 +25,6 @@ class ThemeService {
 
         this.title = dict["title"];
         document.title = this.title;
-        this.description = dict["description"];
-        this.footer = dict["footer"];
 
         document.documentElement.style.cssText =
           "--gallery-background-color: " +
@@ -49,7 +47,23 @@ class ThemeService {
           "--filter-button-color: " + dict["filter-button-color"] + ";";
 
         this.notifyObservers();
-      });
+      })
+
+
+    fetch("/theme/description.txt")
+      .then((stream) => stream.text())
+      .then((txt) => {
+        this.description = marked.parse(txt);;
+        this.notifyObservers();
+      })
+
+
+    fetch("/theme/footer.txt")
+      .then((stream) => stream.text())
+      .then((txt) => {
+        this.footer = marked.parse(txt);;
+        this.notifyObservers();
+      })
   }
 
   addObserver(fn) {

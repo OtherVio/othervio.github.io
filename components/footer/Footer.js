@@ -25,7 +25,7 @@ fetch("/components/footer/Footer.html")
 
       render() {
         let footer = this.#shadowRoot.querySelector(".footer");
-        footer.innerText = window.themeService.footer;
+        footer.innerHTML = window.themeService.footer;
       }
     }
     customElements.define("devi-footer", Header);
